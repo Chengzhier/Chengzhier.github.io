@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>网络通信过程即（Tcp） | 酷爱橙汁儿</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TCP 通信协议
+单播—-&amp;gt;点对点  例如：一个IP对应一个IP
+多播—-&amp;gt;一对多  例如：一个人连联系一个组里面的成员
+广播—-&amp;gt;一对所有   例如：一个群组，一个人发消息所有的人都可以接收到，找到想要的人会自动返回一个结果
+
+hub(集线器)
+定义：能够完成多个电脑的链接
+hub的发送形式：每个数据包都是以广播的形式进行，容易堵塞网络（缺点）
+
+交换机
+定义：能够完成多个电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络通信过程即（Tcp）">
+<meta property="og:url" content="http://yoursite.com/2015/03/25/tcp/index.html">
+<meta property="og:site_name" content="酷爱橙汁儿">
+<meta property="og:description" content="TCP 通信协议
+单播—-&amp;gt;点对点  例如：一个IP对应一个IP
+多播—-&amp;gt;一对多  例如：一个人连联系一个组里面的成员
+广播—-&amp;gt;一对所有   例如：一个群组，一个人发消息所有的人都可以接收到，找到想要的人会自动返回一个结果
+
+hub(集线器)
+定义：能够完成多个电脑的链接
+hub的发送形式：每个数据包都是以广播的形式进行，容易堵塞网络（缺点）
+
+交换机
+定义：能够完成多个电">
+<meta property="og:updated_time" content="2017-04-02T05:58:04.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络通信过程即（Tcp）">
+<meta name="twitter:description" content="TCP 通信协议
+单播—-&amp;gt;点对点  例如：一个IP对应一个IP
+多播—-&amp;gt;一对多  例如：一个人连联系一个组里面的成员
+广播—-&amp;gt;一对所有   例如：一个群组，一个人发消息所有的人都可以接收到，找到想要的人会自动返回一个结果
+
+hub(集线器)
+定义：能够完成多个电脑的链接
+hub的发送形式：每个数据包都是以广播的形式进行，容易堵塞网络（缺点）
+
+交换机
+定义：能够完成多个电">
+  
+    <link rel="alternative" href="/atom.xml" title="酷爱橙汁儿" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://trojanazhen.top/usr/themes/Material/img/MaterialLOGO.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://trojanazhen.top/usr/themes/Material/img/MaterialLOGO.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">酷爱橙汁儿</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/TrojanAZhen" title="github">github</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/Mr_AZhen" title="facebook">facebook</a>
+					        
+								<a class="google" target="_blank" href="https://plus.google.com/102796615154558065153" title="google">google</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/trojanazhen" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Regular-Expression的“Regular”一般被译为“正则”、“正规”、“常规”。此处的“Regular”即是“规则”、“规律”的意思，Regular-Expression即“描述某种规则的表达式”之意/" style="font-size: 10px;">Regular Expression的“Regular”一般被译为“正则”、“正规”、“常规”。此处的“Regular”即是“规则”、“规律”的意思，Regular Expression即“描述某种规则的表达式”之意</a> <a href="/tags/多种方式的服务器的应用/" style="font-size: 10px;">多种方式的服务器的应用</a> <a href="/tags/简单的html知识/" style="font-size: 10px;">简单的html知识</a> <a href="/tags/简单的算法和数据结构/" style="font-size: 10px;">简单的算法和数据结构</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.i3zh.com">i3综合社区</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://trojanazhen.top/">Mine Typrcho Blog</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">看上一个美女</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">酷爱橙汁儿</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://trojanazhen.top/usr/themes/Material/img/MaterialLOGO.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">酷爱橙汁儿</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/TrojanAZhen" title="github">github</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/Mr_AZhen" title="facebook">facebook</a>
+			        
+						<a class="google" target="_blank" href="https://plus.google.com/102796615154558065153" title="google">google</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/trojanazhen" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-tcp" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/25/tcp/" class="article-date">
+  	<time datetime="2015-03-25T11:50:05.000Z" itemprop="datePublished">2015-03-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      网络通信过程即（Tcp）
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h2 id="TCP-通信协议"><a href="#TCP-通信协议" class="headerlink" title="TCP 通信协议"></a>TCP 通信协议</h2><ol>
+<li>单播—-&gt;点对点  例如：一个IP对应一个IP</li>
+<li>多播—-&gt;一对多  例如：一个人连联系一个组里面的成员</li>
+<li>广播—-&gt;一对所有   例如：一个群组，一个人发消息所有的人都可以接收到，找到想要的人会自动返回一个结果</li>
+</ol>
+<h2 id="hub-集线器"><a href="#hub-集线器" class="headerlink" title="hub(集线器)"></a>hub(集线器)</h2><ul>
+<li>定义：能够完成多个电脑的链接</li>
+<li>hub的发送形式：每个数据包都是以广播的形式进行，容易堵塞网络（缺点）</li>
+</ul>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><ul>
+<li>定义：能够完成多个电脑的链接</li>
+<li>交换机的发送形式：先以广播查找找到之后会具体发送（不容易堵塞，反应比较快）</li>
+<li>交换机的作用：可以转发过滤一个目的地址在MAC地址，还具有学习功能，可以知道一个端口的MAC地址并且保存在地址表中</li>
+</ul>
+<h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><ul>
+<li>路由器： 用于连接多个逻辑上分开的网络（不再同一网段上的）</li>
+<li>mac地址在两个设备之间通信时在变化，而ip地址在整个通信过程中都不会发生任何变化</li>
+<li>补充： ip地址  标记逻辑上的地址    mac地址：标记实际转发数据时的设备地址   netmask地址：和ip地址一起来确定网络号</li>
+<li>TTl 值:经过一次路由器就会自动减一</li>
+</ul>
+<h2 id="DNS服务器：用来解析出IP（类似电话簿）"><a href="#DNS服务器：用来解析出IP（类似电话簿）" class="headerlink" title="DNS服务器：用来解析出IP（类似电话簿）"></a>DNS服务器：用来解析出IP（类似电话簿）</h2><ul>
+<li>DFGATEWAY（默认网关）用来对顶，当发送的数据包的目的IP不是当前网络时，此数据包转发的目的IP</li>
+</ul>
+<h2 id="tcp服务器：（重点）"><a href="#tcp服务器：（重点）" class="headerlink" title="tcp服务器：（重点）"></a>tcp服务器：（重点）</h2><ul>
+<li>定义：在通信模型中，在通信开始之前，一定要先建立相关的链接，才能发送数据，相当于”打电话”</li>
+</ul>
+<h4 id="TCP服务器"><a href="#TCP服务器" class="headerlink" title="TCP服务器"></a>TCP服务器</h4><p> 1.创建套接字socket（）    例如：买一个手机<br>  2.绑定IP和端口bind()                     插上手机卡<br> 3.将主动套接字改为被动套接字listen()       设计手机为标准模式<br> 4.接收值accept()此时返回的值为一个元组       静静等着别人给你打电话<br> TCP客户端<br> 1.创建套接字socket()<br>  2.链接connect()建立连接</p>
+<h4 id="创建连接-tcp三次握手：（重点）"><a href="#创建连接-tcp三次握手：（重点）" class="headerlink" title="创建连接 tcp三次握手：（重点）"></a>创建连接 tcp三次握手：（重点）</h4><p> 客户端<br> 1，socket  connect(堵塞)主动打开        SYN J       此时服务器端为    socket(被动),bind,isten accept  第一次握手<br> 2.服务器端返回客户端数据 connect(返回)                        SYN K ,AVK J+1         服务器返回一个给客户<br> 3.客户端返回给服务器                ACK k+1               Accept(返回)  第三次握手</p>
+<h4 id="断开连接-tcp-四次挥手：（重点）"><a href="#断开连接-tcp-四次挥手：（重点）" class="headerlink" title="断开连接 tcp 四次挥手：（重点）"></a>断开连接 tcp 四次挥手：（重点）</h4><p> 客户端                                                        服务器<br> 1.客户端给服务器端发送通知close()第一次挥手<br> 2.服务器端给客户端返回我收到你的消息第二次挥手<br> 3.服务器端给客户端发送通知close()第三次挥手<br> 4.客户端收到消息  返回给服务器  第四次挥手<br> 5.注意：谁先调用CLOSE()谁就先发送请求，谁就需要等待2msl再关闭</p>
+<h2 id="TCP-长链接-与短链接"><a href="#TCP-长链接-与短链接" class="headerlink" title="TCP 长链接 与短链接"></a>TCP 长链接 与短链接</h2><p> 短链接：每一次传输数据都需要先建立三次握手释放时都需要四次挥手  相对与长链接来说比较麻烦<br> 长链接：在一次建立三次握手释放时四次挥手时可以多次传入很多数据</p>
+<h4 id="访问baidu-com-的全过程"><a href="#访问baidu-com-的全过程" class="headerlink" title="访问baidu.com 的全过程"></a>访问baidu.com 的全过程</h4><p>1.先解析出baidu.com对应的ip地址<br>    1.先知道默认网关的MAC地址<br>        2.使用arp获取网关的MAC地址<br>    2.组织数据发送给默认网关此时的ip还是dns服务器的ip,但是mac地址是默认网关的mac地址<br>    3.默认网关拥有转发数据的能力，把数据转发给路由器<br>    4.路由器根据自己的路由协议，来选择一个合适的较快的路经转发数据给目的网关<br>    5.目的网关（dns服务器所在的网关），把数据转发给dns服务器<br>    6.dns服务器查询解析出baidu.com 对应的ip地址并把它原路返回给请求这个域名的client<br>2.得到了baidu.com对应的ip地址之后，会发送tcp的三次握手进行连接<br>3.使用http协议发送请求数据给web服务器<br>4.web 服务器收到数据请求之后，通过查询自己的服务器得到相应的结果，原路返回给浏览器<br>5.浏览器接收到数据后，通过浏览器自己的渲染功能来显示这个网页<br>6.浏览器关闭tcp链接，即4次挥手</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/23/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2017 酷爱橙汁儿
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="http://trojanazhen.top" target="_blank">TrojanAZhen</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
